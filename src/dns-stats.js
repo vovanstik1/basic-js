@@ -7,11 +7,8 @@ const { NotImplementedError } = require('../lib');
  * @return {Object}
  *
  * @example
- * domains = [
- *  'code.yandex.ru',
- *  'music.yandex.ru',
- *  'yandex.ru'
- * ]
+  
+ ]
  *
  * The result should be the following:
  * {
@@ -22,11 +19,29 @@ const { NotImplementedError } = require('../lib');
  * }
  *
  */
-function getDNSStats(/* domains */) {
-  // Remove line below and write your code here
-  throw new NotImplementedError('Not implemented');
+// const domains = ['code.yandex.ru', 'music.yandex.ru', 'yandex.ru'];
+
+function getDNSStats(domains) {
+  const ans = {};
+
+  domains.forEach((domain) => {
+    const parts = domain.split('.').reverse();
+
+    let currentDomain = '';
+    for (let part of parts) {
+      currentDomain += `.${part}`;
+      if (ans[currentDomain]) {
+        ans[currentDomain] += 1;
+      } else {
+        ans[currentDomain] = 1;
+      }
+    }
+  });
+
+  return ans;
 }
 
+// console.log(getDNSStats(domains));
 module.exports = {
-  getDNSStats
+  getDNSStats,
 };
